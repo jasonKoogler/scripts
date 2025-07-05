@@ -249,7 +249,7 @@ SPACESHIP_PROMPT_ORDER=(
   dir           # Current directory section
   host          # Hostname section
   git           # Git section (git_branch + git_status)
-  git_commit    # Last commit message (custom section)
+  git_last_commit    # Last commit message (custom section)
   hg            # Mercurial section
   exec_time     # Execution time
   line_sep      # Line break
@@ -381,8 +381,8 @@ cat > ~/.config/spaceship/spaceship.zsh << 'EOF'
 # Custom Spaceship configuration with last commit message
 
 # Add custom git commit section
-spaceship_git_commit() {
-  [[ $SPACESHIP_GIT_COMMIT_SHOW == false ]] && return
+spaceship_git_last_commit() {
+  [[ $SPACESHIP_GIT_LAST_COMMIT_SHOW == false ]] && return
   
   # Check if we're in a git repo
   spaceship::is_git || return
@@ -395,17 +395,15 @@ spaceship_git_commit() {
   [[ ${#$(git log -1 --pretty=format:"%s" 2>/dev/null)} -gt 50 ]] && commit_msg="${commit_msg}..."
   
   spaceship::section \
-    "$SPACESHIP_GIT_COMMIT_COLOR" \
-    "$SPACESHIP_GIT_COMMIT_PREFIX" \
-    "$commit_msg" \
-    "$SPACESHIP_GIT_COMMIT_SUFFIX"
+    --color "$SPACESHIP_GIT_LAST_COMMIT_COLOR" \
+    "$SPACESHIP_GIT_LAST_COMMIT_PREFIX$commit_msg$SPACESHIP_GIT_LAST_COMMIT_SUFFIX" 
 }
 
 # Configure the commit section
-SPACESHIP_GIT_COMMIT_SHOW=true
-SPACESHIP_GIT_COMMIT_PREFIX=" "
-SPACESHIP_GIT_COMMIT_SUFFIX=""
-SPACESHIP_GIT_COMMIT_COLOR="yellow"
+SPACESHIP_GIT_LAST_COMMIT_SHOW=true
+SPACESHIP_GIT_LAST_COMMIT_PREFIX=""
+SPACESHIP_GIT_LAST_COMMIT_SUFFIX=""
+SPACESHIP_GIT_LAST_COMMIT_COLOR="yellow"
 EOF
 
 # Add spaceship config to zshrc
