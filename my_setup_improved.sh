@@ -37,13 +37,24 @@ print_section() {
 }
 
 # Function to get latest Go version
+# get_latest_go_version() {
+#     print_status "Fetching latest Go version..."
+#     local latest_version
+#     latest_version=$(curl -s https://go.dev/VERSION?m=text | head -n1)
+#     if [[ -z "$latest_version" ]]; then
+#         print_warning "Could not fetch latest Go version, using fallback 1.21.6"
+#         echo "1.21.6"
+#     else
+#         echo "${latest_version#go}"  # Remove 'go' prefix
+#     fi
+# }
+
 get_latest_go_version() {
-    print_status "Fetching latest Go version..."
     local latest_version
-    latest_version=$(curl -s https://go.dev/VERSION?m=text | head -n1)
+    # Use curl silently to avoid output contamination
+    latest_version=$(curl -s https://go.dev/VERSION?m=text 2>/dev/null | head -n1)
     if [[ -z "$latest_version" ]]; then
-        print_warning "Could not fetch latest Go version, using fallback 1.21.6"
-        echo "1.21.6"
+        echo "1.23.1"  # Updated fallback version
     else
         echo "${latest_version#go}"  # Remove 'go' prefix
     fi
