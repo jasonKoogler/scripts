@@ -81,7 +81,7 @@ info "Hardening SSH..."
 sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config
 sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication no/' /etc/ssh/sshd_config
 sed -i 's/^#\?PubkeyAuthentication .*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
-systemctl restart sshd
+systemctl restart ssh
 success "SSH hardened (root login disabled, password auth disabled)"
 
 # ========================================
