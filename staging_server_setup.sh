@@ -266,9 +266,9 @@ else
     git checkout "$BRANCH"
 fi
 
-# Look for docker-compose in common locations
+# Look for docker-compose in common locations (prefer staging-specific)
 COMPOSE_FILE=""
-for f in docker-compose.yml docker-compose.yaml deploy/docker-compose.yml deploy/docker-compose.yaml; do
+for f in deploy/docker-compose.staging.yml docker-compose.staging.yml deploy/docker-compose.yml docker-compose.yml deploy/docker-compose.yaml docker-compose.yaml; do
     if [ -f "$APP_DIR/$f" ]; then
         COMPOSE_FILE="$f"
         break
